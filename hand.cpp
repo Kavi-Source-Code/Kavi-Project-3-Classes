@@ -22,3 +22,18 @@ void Hand::sort_by_rank(Card* copy) const{
         copy[minIndex] = temp;
     }
 }
+
+
+bool Hand::one_pair() const{
+    // TODO: throw an exception if there isn't 5 cards in the hand.
+
+    // Create a copy of the hand and sort it by rank
+    Card copy[this->num_cards];
+    for(int i = 0; i < this->num_cards; i++){
+        copy[i] = this->cards[i];
+    }
+    this->sort_by_rank(copy);
+
+    // TODO: complete this function using the copied hand
+
+}
