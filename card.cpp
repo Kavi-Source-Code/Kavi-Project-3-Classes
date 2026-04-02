@@ -2,11 +2,16 @@
 
 // Constructors
 Card::Card() : suit('H'){
-    // TODO:  initialize missing member
+    // TODO:  initialize missing member(s)
+    this->suit = suit;
+    this->rank = rand() % 14 + 1;
+    //11=jack,12=queen,13=king,14=ace.
 }
 
 Card::Card(Suit suit, int rank) : suit(suit.suit){
-    // TODO:  initialize missing member
+    // TODO:  initialize missing member(s)
+    this->suit = suit;
+    this->rank = rank;
 }
 
 // TODO: implement missing functions
@@ -21,7 +26,6 @@ Card::Card(Suit suit, int rank) : suit(suit.suit){
 void Card::printCard() const{
     string rankStr, suitStr;
     switch(this->rank){
-        case 1:
         case 14:
             rankStr = "Ace";
             break;

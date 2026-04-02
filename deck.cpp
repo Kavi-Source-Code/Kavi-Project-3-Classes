@@ -28,6 +28,8 @@ Card Deck::draw_card(){
     }
 
     // TODO: complete this function
+    Card card = deck[num_cards-- - 1];
+    return card;
 }
 
 // TODO: add missing functions below

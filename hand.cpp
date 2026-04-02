@@ -26,6 +26,9 @@ void Hand::sort_by_rank(Card* copy) const{
 
 bool Hand::one_pair() const{
     // TODO: throw an exception if there isn't 5 cards in the hand.
+    if (this->num_cards != 5){
+        throw Exception("Sorry, your number is invalid.");
+    }
 
     // Create a copy of the hand and sort it by rank
     Card copy[this->num_cards];
@@ -35,5 +38,5 @@ bool Hand::one_pair() const{
     this->sort_by_rank(copy);
 
     // TODO: complete this function using the copied hand
-
+    
 }

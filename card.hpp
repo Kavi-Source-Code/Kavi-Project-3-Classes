@@ -7,12 +7,16 @@
 #ifndef CARD_HPP
 #define CARD_HPP
 
+#include<cstdlib>
+#include <random>
 #include "./suit.hpp"
 #include "./exception.hpp"
 
 class Card{
 private:
     // add missing attributes here
+    Suit suit;
+    int rank;
 public:
     // Constructors
     Card();
