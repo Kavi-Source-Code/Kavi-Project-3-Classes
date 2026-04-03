@@ -33,3 +33,7 @@ Card Deck::draw_card(){
 }
 
 // TODO: add missing functions below
+
+int Deck::get_num_cards(){
+    return this->num_cards;
+}

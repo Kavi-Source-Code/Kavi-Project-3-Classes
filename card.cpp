@@ -62,3 +62,19 @@ void Card::printCard() const{
     else
         cout << "Invalid card!" << endl;
 }
+
+Suit Card::getSuit(){
+    return this->suit;
+}
+
+void Card::setSuit(Suit suit){
+    this->suit = suit;
+}
+
+void Card::setRank(int rank){
+    this->rank = rank;
+}
+
+int Card::getRank(){
+    return this->rank;
+}

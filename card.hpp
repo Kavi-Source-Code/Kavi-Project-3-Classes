@@ -23,7 +23,22 @@ public:
     Card(Suit, int);
 
     // Other member functions
-    void printCard() const; 
+    void printCard() const;
+    Suit getSuit();
+    void setSuit(Suit);
+    void setRank(int);
+    int getRank();
+    
+    // this is a check if 2 cards are the same BY RANK ONLY
+    bool operator==(const Card& card){
+        return this->rank == card.rank;
+    }
+    
+    // same as before, only this is not equal to
+    bool operator!=(const Card& card){
+        return this->rank != card.rank;
+    }
+    
 };
 
 

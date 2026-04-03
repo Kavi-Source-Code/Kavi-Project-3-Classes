@@ -1,10 +1,39 @@
 #include "./hand.hpp"
+/// @file hand.cpp
 
 Hand::Hand(int capacity){
     // TODO: implement this constructor
+    this->num_cards = 0;
+    cards = new Card[capacity];
 }
     
+Hand::~Hand(){
+    delete[] cards;
+}
 
+Hand::Hand(const Hand& hand){
+    num_cards = hand.num_cards;
+    
+    cards = new Card[5];
+    
+    for (int i = 0; i < num_cards; i++) {
+        cards[i] = hand.cards[i];
+    }
+}
+
+Hand& Hand::operator=(const Hand& hand){
+    delete[] cards;
+    
+    num_cards = hand.num_cards;
+    
+    cards = new Card[5];
+    
+    for (int i = 0; i < num_cards; i++) {
+        cards[i] = hand.cards[i];
+    }
+    
+    return *this;
+}
 
 // Sorting function
 void Hand::sort_by_rank(Card* copy) const{
@@ -38,5 +67,75 @@ bool Hand::one_pair() const{
     this->sort_by_rank(copy);
 
     // TODO: complete this function using the copied hand
+    Card current_card = copy[0];
+    for(int i=1;i<5;i++){
+        if(current_card.getRank() == copy[i].getRank()){
+            return true;
+        }
+        current_card = copy[i];
+    }
+    return false;
+}
+
+
+bool Hand::straight() const{
+    if (this->num_cards != 5){
+        throw Exception("Sorry, your number is invalid.");
+    }
+
+    // Create a copy of the hand and sort it by rank
+    Card copy[this->num_cards];
+    for(int i = 0; i < this->num_cards; i++){
+        copy[i] = this->cards[i];
+    }
+    this->sort_by_rank(copy);
     
+    Card current_card = copy[0];
+    for(int i = 1; i < 5; i++){
+        if(current_card.getRank() != copy[i].getRank() - 1){
+            return false;
+        }
+        current_card = copy[i];
+    }
+    return true;
+}
+
+
+bool Hand::two_pair() const{
+    if (this->num_cards != 5){
+        throw Exception("Sorry, your number is invalid.");
+    }
+
+    // Create a copy of the hand and sort it by rank
+    Card copy[this->num_cards];
+    for(int i = 0; i < this->num_cards; i++){
+        copy[i] = this->cards[i];
+    }
+    this->sort_by_rank(copy);
+    
+     /** @brief : < Sort the rank, then check for three possible combinations
+        @note : < There will ALWAYS be three possible combinations.
+    */
+    
+    bool combo1 = copy[0].getRank() == copy[1].getRank() && copy[2].getRank() == copy[3].getRank() && copy[0].getRank() != copy[2].getRank();
+    bool combo2 = copy[0].getRank() == copy[1].getRank() && copy[3].getRank() == copy[4].getRank() && copy[0].getRank() != copy[3].getRank();
+    bool combo3 = copy[1].getRank() == copy[2].getRank() && copy[3].getRank() == copy[4].getRank() && copy[1].getRank() != copy[3].getRank();
+    return combo1 || combo2 || combo3;
+}
+
+bool Hand::four_of_a_kind() const{
+    if (this->num_cards != 5){
+        throw Exception("Sorry, your number is invalid.");
+    }
+
+    // Create a copy of the hand and sort it by rank
+    Card copy[this->num_cards];
+    for(int i = 0; i < this->num_cards; i++){
+        copy[i] = this->cards[i];
+    }
+    this->sort_by_rank(copy);
+    
+    bool combo1 = copy[0] == copy[1] && copy[1] == copy[2] && copy[2] == copy[3];
+    bool combo2 = copy[1] == copy[2] && copy[2] == copy[3] && copy[3] == copy[4];
+    return combo1 || combo2;
 }

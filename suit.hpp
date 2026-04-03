@@ -25,7 +25,7 @@ struct Suit{
         }
     }
 
-// Normally structs are always public.  However, we can also make certain 
+// Normally structs are always public.  However, we can also make certain
 // attributes and member functions private.
 private:
     /**
