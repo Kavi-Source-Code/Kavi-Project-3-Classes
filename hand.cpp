@@ -139,3 +139,22 @@ bool Hand::four_of_a_kind() const{
     bool combo2 = copy[1] == copy[2] && copy[2] == copy[3] && copy[3] == copy[4];
     return combo1 || combo2;
 }
+
+bool Hand::full_house(){
+    if (this->num_cards != 5){
+        throw Exception("Sorry, your number is invalid.");
+    }
+
+    // Create a copy of the hand and sort it by rank
+    Card copy[this->num_cards];
+    for(int i = 0; i < this->num_cards; i++){
+        copy[i] = this->cards[i];
+    }
+    this->sort_by_rank(copy);
+    
+    // There's ONLY ONE possible way. Ex: With a list of [8, 8, 7, 8, 7], when sorted, will become [7, 7, 7, 8, 8]. With this information, we can hopefully make the right conditional.
+    
+    // Create the conditional in a variable.
+    bool combo1 = copy[0] == copy[1] && copy[1] == copy[2] && copy[3] == copy[4] && copy[0] != copy[3];
+    return combo1; //we could have done this in one line, but it's cleaner this way.
+}
