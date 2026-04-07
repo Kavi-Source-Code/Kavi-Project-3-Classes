@@ -158,3 +158,25 @@ bool Hand::full_house(){
     bool combo1 = copy[0] == copy[1] && copy[1] == copy[2] && copy[3] == copy[4] && copy[0] != copy[3];
     return combo1; //we could have done this in one line, but it's cleaner this way.
 }
+
+bool Hand::flush() const{
+    if (this->num_cards != 5){
+        throw Exception("Sorry, your number is invalid.");
+    }
+
+    // Create a copy of the hand and sort it by rank
+    Card copy[this->num_cards];
+    for(int i = 0; i < this->num_cards; i++){
+        copy[i] = this->cards[i];
+    }
+    this->sort_by_rank(copy);
+    
+    // ...
+    for (int i = 14; i > 0; i--){
+        if (i - 5 <= 0){
+            break;
+        }
+        check = cards[0] == i && cards[1] == i-- && cards[2] == i - 2 && cards[3] == i - 3 && cards[4] == i - 4;
+    }
+    return check;
+}
