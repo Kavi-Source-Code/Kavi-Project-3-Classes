@@ -159,7 +159,7 @@ bool Hand::full_house(){
     return combo1; //we could have done this in one line, but it's cleaner this way.
 }
 
-bool Hand::flush() const{
+bool Hand::straight_flush() const{
     if (this->num_cards != 5){
         throw Exception("Sorry, your number is invalid.");
     }
@@ -171,7 +171,7 @@ bool Hand::flush() const{
     }
     this->sort_by_rank(copy);
     
-    // ...
+    // ... is this right?
     for (int i = 14; i > 0; i--){
         if (i - 5 <= 0){
             break;
@@ -179,4 +179,22 @@ bool Hand::flush() const{
         check = cards[0] == i && cards[1] == i-- && cards[2] == i - 2 && cards[3] == i - 3 && cards[4] == i - 4;
     }
     return check;
+}
+
+bool Hand::flush(){
+    if (this->num_cards != 5){
+        throw Exception("Sorry, your number is invalid.");
+    }
+
+    // Create a copy of the hand and sort it by rank
+    Card copy[this->num_cards];
+    for(int i = 0; i < this->num_cards; i++){
+        copy[i] = this->cards[i];
+    }
+    this->sort_by_rank(copy);
+    
+    // Check if the cards are ALL the same suit.
+    
+    //lazy here.
+    return cards[0].getSuit() == cards[1].getSuit() && cards[1].getSuit() == cards[2].getSuit() && cards[2].getSuit() == cards[3].getSuit() && cards[3].getSuit() == cards[4].getSuit();
 }
