@@ -198,3 +198,21 @@ bool Hand::flush(){
     //lazy here.
     return cards[0].getSuit() == cards[1].getSuit() && cards[1].getSuit() == cards[2].getSuit() && cards[2].getSuit() == cards[3].getSuit() && cards[3].getSuit() == cards[4].getSuit();
 }
+
+bool Hand::three_of_a_kind() const{
+    if (this->num_cards != 5){
+        throw Exception("Sorry, your number is invalid.");
+    }
+
+    // Create a copy of the hand and sort it by rank
+    Card copy[this->num_cards];
+    for(int i = 0; i < this->num_cards; i++){
+        copy[i] = this->cards[i];
+    }
+    this->sort_by_rank(copy);
+    // three of a kind will ONLY be two combos (e.g. [5, 6, 7, 7, 7], [6, 6, 6, 7, 8]).
+    // So, make a variable that holds this.
+    three_kind = copy[0] == copy[1] && copy[1] == copy[2];
+    return three_kind;
+    /// I'm not sure if this function works... < `g++ *.cpp -o poker.exe`
+}
