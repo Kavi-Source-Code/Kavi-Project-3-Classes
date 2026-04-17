@@ -189,7 +189,7 @@ bool Hand::flush() const{
     // Check if the cards are ALL the same suit.
     
     //lazy here.
-    return cards[0].getSuit() == cards[1].getSuit() && cards[1].getSuit() == cards[2].getSuit() && cards[2].getSuit() == cards[3].getSuit() && cards[3].getSuit() == cards[4].getSuit();
+    return cards[0].getSuit().suit == cards[1].getSuit().suit && cards[1].getSuit().suit == cards[2].getSuit().suit && cards[2].getSuit().suit == cards[3].getSuit().suit && cards[3].getSuit().suit == cards[4].getSuit().suit;
 }
 
 bool Hand::three_of_a_kind() const{
@@ -247,3 +247,19 @@ int Hand::score(){
     }
     return your_score;
 }
+
+void Hand::clear_hand(){
+    num_cards = 0;
+}
+
+void Hand::add_to_hand(const Card& card){
+    if (this->num_cards == 5){
+        throw Exception("Sorry, but your hand is full.");
+    }
+    // 0 cards: [0] [] [] [] []
+    // 1 card : [x] [1] [] [] []
+    // 2 cards: [x] [x] [2] [] []
+    cards[this->num_cards] = card;
+    ++this->num_cards;
+}
+
